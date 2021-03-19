@@ -72,7 +72,7 @@ def Delete_db():
     cui.destroy()
     conn = sqlite3.connect(r"D:\Cmon\PROJECT_PYTHON.db")
     c = conn.cursor()
-    c.execute('''DELETE FROM users WHERE No = ?''',Number)
+    c.execute('''DELETE FROM users WHERE No = ?''',(str(Number),))
     conn.commit()
     conn.close()
     min()
@@ -290,7 +290,6 @@ def show5():
 def show4():
     SD4.set(f'Name   =>   {Nname}')
     show5()
-
 def Add_data():
     global text_mas,SD,SD1,SD2,SD3,SD4,SD5
     gui.destroy()
@@ -309,8 +308,8 @@ def Add_data():
     Label(win,image=photo02).place(relx=0.185 ,rely=0.06,anchor='n')
     Button(win,text='Summit',bd=5,bg='gold2',command=insert_Data).place(relx=0.13,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(win,text='back',bd=5,bg='blue2',command=aine).place(relx=0.234,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
-    Label(win,text='กรูณาเลือกหมายเลขโต๊ะของท่าน',bg= 'seagreen2').place(relx=0.59,rely=0.09,relwidth= 0.18,relheight=0.05,anchor='n')
-    Label(win,text='กรูณาเลือกเลือกขนาด',bg= 'seagreen2').place(relx=0.59,rely=0.215,relwidth= 0.18,relheight=0.05,anchor='n')
+    Label(win,text='กรุณาเลือกหมายเลขโต๊ะของท่าน',bg= 'seagreen2').place(relx=0.59,rely=0.09,relwidth= 0.18,relheight=0.05,anchor='n')
+    Label(win,text='กรุณาเลือกเลือกขนาด',bg= 'seagreen2').place(relx=0.59,rely=0.215,relwidth= 0.18,relheight=0.05,anchor='n')
     Button(win,text='1',bd=5,bg='red3',command = a).place(relx=0.39,rely=0.154,relwidth= 0.04,relheight=0.05,anchor='n')
     Button(win,text='2',bd=5,bg='red3',command = b).place(relx=0.44,rely=0.154,relwidth= 0.04,relheight=0.05,anchor='n')
     Button(win,text='3',bd=5,bg='red3',command = c).place(relx=0.49,rely=0.154,relwidth= 0.04,relheight=0.05,anchor='n')
@@ -326,7 +325,7 @@ def Add_data():
     Button(win,text='L',bd=5,bg='gold2',command =m).place(relx=0.49,rely=0.28,relwidth= 0.04,relheight=0.05,anchor='n')
     Button(win,text='XL',bd=5,bg='gold2',command =n).place(relx=0.54,rely=0.28,relwidth= 0.04,relheight=0.05,anchor='n')
     Button(win,text='XXL',bd=5,bg='gold2',command =o).place(relx=0.59,rely=0.28,relwidth= 0.04,relheight=0.05,anchor='n')
-    Label(win,text='กรูณาเลือกรสชาติที่ต้องการ',bg= 'seagreen2').place(relx=0.59,rely=0.345,relwidth= 0.18,relheight=0.05,anchor='n')
+    Label(win,text='กรุณาเลือกรสชาติที่ต้องการ',bg= 'seagreen2').place(relx=0.59,rely=0.345,relwidth= 0.18,relheight=0.05,anchor='n')
     Button(win,text='Mixed fruit',bd=5,bg='khaki',command =p).place(relx=0.41,rely=0.41,relwidth= 0.08,relheight=0.05,anchor='n')
     Button(win,text='Longan',bd=5,bg='goldenrod2',command =q).place(relx=0.50,rely=0.41,relwidth= 0.08,relheight=0.05,anchor='n')
     Button(win,text='Rambutan',bd=5,bg='red2',command =r).place(relx=0.59,rely=0.41,relwidth= 0.08,relheight=0.05,anchor='n')
@@ -337,7 +336,7 @@ def Add_data():
     Button(win,text='Chocolate',bd=5,bg='red2',command =v).place(relx=0.53,rely=0.55,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(win,text='Whipped Cream & Chocolate',bd=5,bg='sienna1',command =w).place(relx=0.695,rely=0.55,relwidth= 0.21,relheight=0.05,anchor='n')
     Button(win,text='Not add',bd=5,bg='yellow2',command =x).place(relx=0.86,rely=0.55,relwidth= 0.1,relheight=0.05,anchor='n')
-    Label(win,text='กรูณาใส่ชื่อของท่าน',bg= 'seagreen2').place(relx=0.430,rely=0.62,relwidth= 0.12,relheight=0.05,anchor='n')
+    Label(win,text='กรุณาใส่ชื่อของท่าน',bg= 'seagreen2').place(relx=0.430,rely=0.62,relwidth= 0.12,relheight=0.05,anchor='n')
     text_mas=Entry(win)
     text_mas.place(relx=0.56,rely=0.62,relwidth= 0.12,relheight=0.05,anchor='n')
     Button(win,text='Get',bd=5,bg='yellow2',command = text01).place(relx=0.65,rely=0.62,relwidth= 0.03,relheight=0.05,anchor='n')
@@ -417,23 +416,24 @@ def text02():
     Nname = str(text_m.get())
 
 def Show_data():
-    global man5
     two()
     jk= "--------"
     gui.destroy()
     aui.title('Edit')
     aui.option_add('*Font','Thaisaraban 12')
-    f1 = Frame(aui,bg='cornsilk')
-    f1.place(relx=0.5,rely=0.12,relwidth= 0.87,relheight=0.72,anchor='n')
-    
+    jk = "------"
+    sb = Scrollbar(aui )  
+    sb.pack(side = RIGHT, fill = Y)
     try:
+        jk = '\t'
         conn = sqlite3.connect(r"D:\Cmon\PROJECT_PYTHON.db")
         c = conn.cursor()
         c.execute('''SELECT * FROM users''')
         conn.commit()
         result = c.fetchall()
+        Label(aui,text= 'ลำดับ----------วัน--------เวลา--------โต๊ะ---------ชื่อ---------ขนาด---------รสชาติ---------ท็อปปิ้ง---------ราคา',bg="gold2").pack(anchor='w',fill=X)
         for x in result:
-            Label(f1,text = (x[0],jk,x[1],jk,x[2],jk,x[3],jk,x[4],jk,x[5],jk,x[6],jk,x[7],jk,x[8]),bg = "deep sky blue",height = 2).pack(fill=X,anchor='n')
+            Label(aui,text= (x[0],jk,x[1],jk,x[2],jk,x[3],jk,x[4],jk,x[5],jk,x[6],jk,x[7],jk,x[8])).pack(anchor='w')
         conn.commit()
         c.close()
     except sqlite3.Error as e:
@@ -441,13 +441,14 @@ def Show_data():
     finally:
         if conn:
             conn.close()
-    Button(aui,text='back',bd=5,bg='blue2',command=bine).place(relx=0.234,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n') 
+    Label(aui,bg='deep sky blue',height=120).pack(fill=X)
+    Button(aui,text='back',bd=5,bg='blue2',command=bine).place(relx=0.13,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     aui.attributes("-fullscreen",True)
     aui.mainloop()
 
 def nom06():
     global Number
-    Number = str(miiin.get())
+    Number = miiin.get()
 
 def Deleat_data():
     global miiin
@@ -455,18 +456,36 @@ def Deleat_data():
     gui.destroy()
     cui.option_add('*Font','Thaisaraban 12')
     cui.title('PROJECT_PYTHON')
+    Label(cui,height=2,bg='firebrick2').pack(fill=X)
+    jk = "------"
+    sb = Scrollbar(cui )  
+    sb.pack(side = RIGHT, fill = Y)
+    try:
+        jk = '\t'
+        conn = sqlite3.connect(r"D:\Cmon\PROJECT_PYTHON.db")
+        c = conn.cursor()
+        c.execute('''SELECT * FROM users''')
+        conn.commit()
+        result = c.fetchall()
+        Label(cui,text= 'ลำดับ----------วัน--------เวลา--------โต๊ะ---------ชื่อ---------ขนาด---------รสชาติ---------ท็อปปิ้ง---------ราคา',bg="gold2").pack(anchor='w',fill=X)
+        for x in result:
+            Label(cui,text= (x[0],jk,x[1],jk,x[2],jk,x[3],jk,x[4],jk,x[5],jk,x[6],jk,x[7],jk,x[8])).pack(anchor='w')
+        conn.commit()
+        c.close()
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
     Label(cui,bg='deep sky blue',height=120).pack(fill=X)
-    Label(cui,height=2,bg='firebrick2').pack(fill=X)
     miiin = Entry(cui)
-    miiin.place(relx=0.455,rely=0.26,relwidth= 0.09,relheight=0.05,anchor='n')
-    Label(cui,height=2,bg='firebrick2').pack(fill=X)
-    Label(cui,text='กรุณาใส่ลำดับที่ต้องการแก้ไข',bg= 'seagreen2').place(relx=0.5,rely=0.19,relwidth= 0.18,relheight=0.05,anchor='n')
+    miiin.place(relx=0.85,rely=0.9,relwidth= 0.09,relheight=0.05,anchor='n')
+    Label(cui,text='กรุณาใส่ลำดับที่ต้องการแก้ไข',bg= 'seagreen2').place(relx=0.71,rely=0.9,relwidth= 0.18,relheight=0.05,anchor='n')
     Button(cui,text='back',bd=5,bg='blue2',command=dine).place(relx=0.234,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(cui,text='Summit',bd=5,bg='gold2',command=Delete_db).place(relx=0.13,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')    
-    Button(cui,text='Get',bd=5,bg='yellow2',command= nom06).place(relx=0.52,rely=0.26,relwidth= 0.03,relheight=0.05,anchor='n')
+    Button(cui,text='Get',bd=5,bg='yellow2',command= nom06).place(relx=0.92,rely=0.9,relwidth= 0.03,relheight=0.05,anchor='n')
     cui.attributes("-fullscreen",True)
     cui.mainloop()
-
 def min():
     global gui
     gui = Tk()
@@ -480,9 +499,9 @@ def min():
     Button(gui,text='Add',bd=5,bg='maroon4',command=Add_data).place(relx=0.13,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(gui,text='Show',bd=5,bg='blue2',command=Show_data).place(relx=0.234,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(gui,text='Edit',bd=5,bg='green3',command=Edit_data).place(relx=0.338,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
-    Button(gui,text='Deleat',bd=5,bg='gold2',command=Deleat_data).place(relx=0.442,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
+    Button(gui,text='Delete',bd=5,bg='gold2',command=Deleat_data).place(relx=0.442,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     Button(gui,text='Exit',bd=5,bg='orange red',command= gui.destroy).place(relx=0.546,rely=0.9,relwidth= 0.1,relheight=0.05,anchor='n')
     gui.attributes("-fullscreen",True)
     gui.mainloop()
 min()
-clear()     
+clear()
